@@ -1,0 +1,21 @@
+stages:
+  - build
+  - test
+
+# Build Stage: Install project dependencies
+build:
+  image: node:14 # Use Node.js version 14
+  stage: build
+  script:
+    - npm install # Install dependencies
+
+# Test Stage: Run Cypress tests with Mochawesome reporter
+test:
+  image: cypress/browsers:node14.17.0-chrome91-ff89 # Use Cypress image with browsers
+  stage: test
+  script:
+    - npm run test # Run Cypress tests
+  artifacts: # Store test results as artifacts
+    paths:
+      - cypress/results/ # Path to the report directory
+    expire_in: 1 week # Keep artifacts for one week
